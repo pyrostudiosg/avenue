@@ -9,6 +9,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <h1>hhahahah</h1>
     {/* <RouterProvider router = {router} /> */}
-    <AR/>
+    {/* <AR/> */}
   </React.StrictMode>,
 )
