@@ -16,7 +16,7 @@ export default function App() {
       transition={{ duration: 0.6 }}
       className=' bg-[#ffffff]'
       > 
-        <h1>haha</h1>
+        <h1 className='text-yellow-500'>haha</h1>
       </motion.div>
     )
   }
