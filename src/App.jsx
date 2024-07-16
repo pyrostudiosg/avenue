@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useRef } from 'react';
+import 'aframe';
+import {Entity, Scene} from 'aframe-react';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const sceneRef = useRef(null);
+
+  useEffect(() => {
+    const { current: scene } = sceneRef;
+    if (scene) {
+      // Access A-Frame scene methods or AR.js initialization here
+      console.log('Scene mounted:', scene);
+    }
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div >
+      {/* A-Frame scene */}
+      <a-scene
+        ref={sceneRef}
+        embedded
+        arjs="trackingMethod: best; sourceType: phone; debugUIEnabled: true;"
+        vr-mode-ui="enabled: true;"
+        renderer="logarithmicDepthBuffer: true;"
+        style={{ height: '100%', width: '100%' }}
+      >
+        {/* A-NFT for image tracking */}
+        <a-nft
+          type="nft"
+          url="/tracker/avenue logo white"
+          smooth="true"
+          smoothCount="10"
+          smoothTolerance=".01"
+          smoothThreshold="5"
+        >
+          {/* GLTF model entity */}
+          <a-entity
+            gltf-model="/scene.glb"
+            scale="5 5 5"
+            position="0 0 0"
+          ></a-entity>
+        </a-nft>
 
-export default App
+        {/* Static camera that moves according to device movements */}
+        <a-entity camera></a-entity>
+      </a-scene>
+    </div>
+  );
+};
+
+export default App;
